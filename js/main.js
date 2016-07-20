@@ -52,6 +52,9 @@ function setEngine() {
 		case "bilibili": 
 			$search.attr("href","http://www.bilibili.tv/search?keyword="+text);
 			break;
+		case "wangpan": 
+			$search.attr("href","http://www.quzhuanpan.com/source/search.action?q="+text);
+			break;
 	}
 };
 
