@@ -1,24 +1,29 @@
 $(document).ready(function() {
-	whenClick()
-	addClickEvent();
+	searchButtonClicked();
+	enterKeyPressed()
+	clickSearchOption();
+	setEachTd();
+	mouseInTd();
 });
 
-function whenClick() {
-	$("button.search a").click(function(event) {
+function searchButtonClicked() {
+	$(".search-button a").click(function(event) {
 		search();
 		event.preventDefault(); 
 	})
 }
 
-$(document).keydown(function(event) {
-	if(event.keyCode === 13  && $("input").is(":focus") ){
-		search();
-		event.preventDefault();
-	}
-});
+function enterKeyPressed() {
+	$(document).keydown(function(event) {
+		if(event.keyCode === 13  && $("input").is(":focus") ){
+			search();
+			event.preventDefault();
+		}
+	});
+}
 
-function addClickEvent() {
-	var $a = $("ul.nav-tabs li a")
+function clickSearchOption() {
+	var $a = $("ul.search-option li a")
 	$a.each(function(i) {
 		$a.eq(i).click(function() {
 			$a.eq(i).parent().addClass('active').siblings('li').removeClass('active');
@@ -29,13 +34,13 @@ function addClickEvent() {
 
 function search() {
 	setEngine();
-	window.open ($("button.search a").attr("href")); 
+	window.open ($(".search-button a").attr("href")); 
 }
 
 function setEngine() {
 	var text         = $("input").val();
-	var $search      = $("button.search a");
-	var searchEngine = $(".nav-tabs li[class=active]").children('a').attr('data-se');
+	var $search      = $(".search-button a");
+	var searchEngine = $(".search-option li[class=active]").children('a').attr('data-se');
 	switch(searchEngine) {
 		case "google": 
 			$search.attr("href","https://www.google.com/?gws_rd=ssl#c2coff=1&q="+text)
@@ -57,6 +62,29 @@ function setEngine() {
 			break;
 	}
 };
+
+
+function setEachTd() {
+	var $div = $("table td div");
+	$div.each(function(i) {
+		var $a   = $div.eq(i).find('a');
+		var src  = $a.attr("data-src");
+		$div.eq(i).css('background', 'url('+src+') no-repeat center');
+		var name = $a.attr("name");
+		var $p   = $("<p>"+name+"</p>");
+		$a.append($p);
+	});
+}
+
+function mouseInTd() {
+	$("table.nav-mod td a").hover(function() {
+		var $p = $(this).children('p');
+		$p.animate({bottom: "0px" }, 120);
+	}, function() {
+					var $p = $(this).children('p');
+					$p.animate({bottom: "-20px" }, 120);
+	});
+}
 
 //$(document).ready(function() {
 //	/*禁用鼠标右键*/
