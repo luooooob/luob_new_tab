@@ -2,11 +2,12 @@ body{
 	background: url(../img/bgi.jpg);
 	background-size: 100% 100%;
 	min-height: 760px;
+	font-family: Arial, 宋体;
 }
 .search-div{
 	font-size: 17px;
 	width: 600px;
-	margin: 0px auto;
+	margin: 20px auto;
 	padding: 20px;
 }
 .search-div ul{
@@ -58,7 +59,7 @@ body{
 	background-color: rgb(52,145,204);
 }
 table {
-	margin: 25px auto 0;
+	margin: 40px auto 0;
 }
 table td{
 	background-color: #fff;
@@ -75,7 +76,7 @@ table td div a{
 	position: relative;
 }
 table td div a p {
-	font-size: 16px;
+	font-size: 14px;
 	height: 20px;
 	background-color: rgba(52,145,204,0.6);
 	color: #fff;

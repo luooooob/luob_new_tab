@@ -1,10 +1,70 @@
-$(document).ready(function() {
-	searchButtonClicked();
-	enterKeyPressed()
-	clickSearchOption();
-	setEachTd();
-	mouseInTd();
-});
+/* ========================================================================
+ * My first extension, a new tab plugin.  
+ * ========================================================================
+ * Copyright 2016 Cyan Jung
+ * ======================================================================== 
+ *    
+ *          ┌─┐       ┌─┐
+ *       ┌──┘ ┴───────┘ ┴──┐
+ *       │                 │
+ *       │       ───       │
+ *       │  ─┬┘       └┬─  │
+ *       │                 │
+ *       │       ─┴─       │
+ *       │                 │
+ *       └───┐         ┌───┘
+ *           │         │
+ *           │         │
+ *           │         │
+ *           │         └──────────────┐
+ *           │                        │
+ *           │                        ├─┐
+ *           │                        ┌─┘    
+ *           │                        │
+ *           └─┐  ┐  ┌───────┬──┐  ┌──┘         
+ *             │ ─┤ ─┤       │ ─┤ ─┤         
+ *             └──┴──┘       └──┴──┘ 
+ *
+ * ======================================================================== */
+
+
+ $(document).ready(function() {
+ 	setEachTd();
+ 	mouseInTd();
+ 	searchButtonClicked();
+ 	enterKeyPressed();
+ 	clickSearchOption();
+ });
+
+function setEachTd() {
+	var $div = $("table td div");
+	$div.each(function(i) {
+		var $a   = $div.eq(i).find('a');
+		var src  = $a.attr("data-src");
+		$div.eq(i).css('background', 'url('+src+') no-repeat center');
+		var name = $a.attr("name");
+		var $p   = $("<p>"+name+"</p>");
+		$a.append($p);
+	});
+}
+
+function mouseInTd() {
+	$("table.nav-mod td a").hover(function() {
+		var $p = $(this).children('p');
+		$p.animate({bottom: "0px" }, 120);
+	}, function() {
+		var $p = $(this).children('p');
+		$p.animate({bottom: "-20px" }, 120);
+	});
+}
+/* ========================================================================
+ * Bootstrap: transition.js v3.3.5
+ * http://getbootstrap.com/javascript/#transitions
+ * ========================================================================
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
 
 function searchButtonClicked() {
 	$(".search-button a").click(function(event) {
@@ -49,7 +109,12 @@ function setEngine() {
 			$search.attr("href","http://www.baidu.com/s?wd="+text);
 			break;
 		case "zhihu": 
-			$search.attr("href","http://www.zhihu.com/search?q="+text);
+			if(text === "") {
+				$search.attr("href","http://www.zhihu.com");
+			}
+			else {
+				$search.attr("href","http://www.zhihu.com/search?q="+text);
+			}
 			break;
 		case "quora": 
 			$search.attr("href","https://www.quora.com/search?q="+text);
@@ -62,32 +127,8 @@ function setEngine() {
 			break;
 	}
 };
-
-
-function setEachTd() {
-	var $div = $("table td div");
-	$div.each(function(i) {
-		var $a   = $div.eq(i).find('a');
-		var src  = $a.attr("data-src");
-		$div.eq(i).css('background', 'url('+src+') no-repeat center');
-		var name = $a.attr("name");
-		var $p   = $("<p>"+name+"</p>");
-		$a.append($p);
-	});
-}
-
-function mouseInTd() {
-	$("table.nav-mod td a").hover(function() {
-		var $p = $(this).children('p');
-		$p.animate({bottom: "0px" }, 120);
-	}, function() {
-					var $p = $(this).children('p');
-					$p.animate({bottom: "-20px" }, 120);
-	});
-}
-
-//$(document).ready(function() {
-//	/*禁用鼠标右键*/
-//	document.oncontextmenu=new Function("event.returnValue=false;");
-//     document.onselectstart=new Function("event.returnValue=false;");
-//});
+$(document).ready(function() {
+	/*禁用鼠标右键*/
+	document.oncontextmenu=new Function("event.returnValue=false;");
+     document.onselectstart=new Function("event.returnValue=false;");
+});
