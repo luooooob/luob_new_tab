@@ -1,20 +1,35 @@
-
-
 $(document).ready(function() {
-	setEngine();
+	whenClick()
 	addClickEvent();
+});
+
+function whenClick() {
+	$("button.search a").click(function(event) {
+		search();
+		event.preventDefault(); 
+	})
+}
+
+$(document).keydown(function(event) {
+	if(event.keyCode === 13  && $("input").is(":focus") ){
+		search();
+		event.preventDefault();
+	}
 });
 
 function addClickEvent() {
 	var $a = $("ul.nav-tabs li a")
 	$a.each(function(i) {
 		$a.eq(i).click(function() {
-			$a.eq(i).parent().addClass('active')
-			.siblings('li').removeClass('active');
-			/*addactive*/
-			setEngine();
+			$a.eq(i).parent().addClass('active').siblings('li').removeClass('active');
+			event.preventDefault();
 		})
 	});
+}
+
+function search() {
+	setEngine();
+	window.open ($("button.search a").attr("href")); 
 }
 
 function setEngine() {
@@ -23,7 +38,7 @@ function setEngine() {
 	var searchEngine = $(".nav-tabs li[class=active]").children('a').attr('data-se');
 	switch(searchEngine) {
 		case "google": 
-		$search.attr("href","https://www.google.com/?gws_rd=ssl#c2coff=1&q="+text)
+			$search.attr("href","https://www.google.com/?gws_rd=ssl#c2coff=1&q="+text)
 			break;
 		case "baidu": 
 			$search.attr("href","http://www.baidu.com/s?wd="+text);
@@ -39,3 +54,9 @@ function setEngine() {
 			break;
 	}
 };
+
+//$(document).ready(function() {
+//	/*禁用鼠标右键*/
+//	document.oncontextmenu=new Function("event.returnValue=false;");
+//     document.onselectstart=new Function("event.returnValue=false;");
+//});
