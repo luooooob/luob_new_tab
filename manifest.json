@@ -1,12 +1,13 @@
 {
-	"name": "My First Extension",
+	"name": "Luob's New Tab",
 	"manifest_version": 2,
 	"version": "1.0.0",
-	"description": "The first extension that I made.",
+	"description": "卜酱的新标签页扩展",
 	"browser_action": {
-		"default_icon": "img/icon.png"
+		"default_icon": "logo/icon.png"
 	},
 	"chrome_url_overrides" : {
-    "newtab": "index.html"
-  	}
+    	"newtab": "index.html"
+  	},
+  	"update_url": "http://upext.chrome.360.cn/intf.php?method=ExtUpdate.query"
 }

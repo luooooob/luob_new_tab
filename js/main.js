@@ -28,6 +28,7 @@
  * ======================================================================== */
 
 
+
  $(document).ready(function() {
  	setEachTd();
  	mouseInTd();
@@ -36,7 +37,20 @@
  	clickSearchOption();
  });
 
+
+$(document).ready(function(){ 
+	/*禁用鼠标右键*/ 
+    $(document).bind("contextmenu",function(e){   
+          return false;   
+    });
+});
+
+/* ========================================================================
+ * 导航部分
+ * ======================================================================== */
+
 function setEachTd() {
+	/*设置每个导航框的background image和浮动文字*/
 	var $div = $("table td div");
 	$div.each(function(i) {
 		var $a   = $div.eq(i).find('a');
@@ -49,22 +63,20 @@ function setEachTd() {
 }
 
 function mouseInTd() {
+	/*jQuery的鼠标移入移出动画*/
 	$("table.nav-mod td a").hover(function() {
 		var $p = $(this).children('p');
-		$p.animate({bottom: "0px" }, 120);
+		$p.animate({bottom: "-1px" }, 120);
 	}, function() {
 		var $p = $(this).children('p');
 		$p.animate({bottom: "-20px" }, 120);
 	});
 }
-/* ========================================================================
- * Bootstrap: transition.js v3.3.5
- * http://getbootstrap.com/javascript/#transitions
- * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
 
+
+/* ========================================================================
+ * 搜索栏部分
+ * ======================================================================== */
 
 function searchButtonClicked() {
 	$(".search-button a").click(function(event) {
@@ -74,6 +86,7 @@ function searchButtonClicked() {
 }
 
 function enterKeyPressed() {
+	/*绑定ENTER键*/
 	$(document).keydown(function(event) {
 		if(event.keyCode === 13  && $("input").is(":focus") ){
 			search();
@@ -83,6 +96,7 @@ function enterKeyPressed() {
 }
 
 function clickSearchOption() {
+	/*点击切换搜索选项列表的active class*/
 	var $a = $("ul.search-option li a")
 	$a.each(function(i) {
 		$a.eq(i).click(function() {
@@ -98,6 +112,7 @@ function search() {
 }
 
 function setEngine() {
+	/*根据搜索选项列表的active class设置搜索引擎*/
 	var text         = $("input").val();
 	var $search      = $(".search-button a");
 	var searchEngine = $(".search-option li[class=active]").children('a').attr('data-se');
@@ -127,8 +142,3 @@ function setEngine() {
 			break;
 	}
 };
-$(document).ready(function() {
-	/*禁用鼠标右键*/
-	document.oncontextmenu=new Function("event.returnValue=false;");
-     document.onselectstart=new Function("event.returnValue=false;");
-});
